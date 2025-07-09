@@ -49,6 +49,7 @@ jobs:
       FUNCTION_NAME: MyApp1LambdaFunction  # replace with your actual Lambda function name for App1
       IMAGE_REPO: test_app1                    # ECR repository name for App1 image
       BASE_IMAGE_REPO: test_base
+      BASE_IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -70,12 +71,15 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           IMAGE_REPO: ${{ env.IMAGE_REPO }}
           BASE_IMAGE_REPO: ${{ env.BASE_IMAGE_REPO }}
+          BASE_IMAGE_TAG: ${{ env.BASE_IMAGE_TAG }}
         run: |
           echo "Building App1 image..."
 
           echo "ECR_REGISTRY: $ECR_REGISTRY"
           echo "IMAGE_TAG: $IMAGE_TAG"
           echo "IMAGE_REPO: $IMAGE_REPO"
+          echo "BASE_IMAGE_REPO: $BASE_IMAGE_REPO"
+          echo "BASE_IMAGE_TAG: $BASE_IMAGE_TAG"
 
           docker build -t $ECR_REGISTRY/$IMAGE_REPO:$IMAGE_TAG \
                        -t $ECR_REGISTRY/$IMAGE_REPO:latest \
@@ -101,6 +105,7 @@ jobs:
           echo "IMAGE_TAG: $IMAGE_TAG"
           echo "IMAGE_REPO: $IMAGE_REPO"
           echo "BASE_IMAGE_REPO: $BASE_IMAGE_REPO"
+          echo "BASE_IMAGE_TAG: $BASE_IMAGE_TAG"
           echo "FUNCTION_NAME: $FUNCTION_NAME"
           aws lambda update-function-code \
             --function-name "$FUNCTION_NAME" \
@@ -115,6 +120,7 @@ jobs:
       FUNCTION_NAME: MyApp2LambdaFunction   # replace with actual Lambda name for App2
       IMAGE_REPO: test_app2                     # ECR repo name for App2 image
       BASE_IMAGE_REPO: test_base
+      BASE_IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
@@ -136,12 +142,15 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
           IMAGE_REPO: ${{ env.IMAGE_REPO }}
           BASE_IMAGE_REPO: ${{ env.BASE_IMAGE_REPO }}
+          BASE_IMAGE_TAG: ${{ env.BASE_IMAGE_TAG }}
         run: |
           echo "Building App2 image..."
           echo "ECR_REGISTRY: $ECR_REGISTRY"
           echo "IMAGE_TAG: $IMAGE_TAG"
           echo "IMAGE_REPO: $IMAGE_REPO"
           echo "BASE_IMAGE_REPO: $BASE_IMAGE_REPO"
+          echo "BASE_IMAGE_TAG: $BASE_IMAGE_TAG"
+
           docker build -t $ECR_REGISTRY/$IMAGE_REPO:$IMAGE_TAG \
                        -t $ECR_REGISTRY/$IMAGE_REPO:latest \
                        -f app2/Dockerfile \
@@ -160,12 +169,14 @@ jobs:
           IMAGE_REPO: ${{ env.IMAGE_REPO }}
           BASE_IMAGE_REPO: ${{ env.BASE_IMAGE_REPO }}
           FUNCTION_NAME: ${{ env.FUNCTION_NAME }}
+          BASE_IMAGE_TAG: ${{ env.BASE_IMAGE_TAG }}
         run: |
           echo "Deploying new image to Lambda: $FUNCTION_NAME"
           echo "ECR_REGISTRY: $ECR_REGISTRY"
           echo "IMAGE_TAG: $IMAGE_TAG"
           echo "IMAGE_REPO: $IMAGE_REPO"
           echo "BASE_IMAGE_REPO: $BASE_IMAGE_REPO"
+          echo "BASE_IMAGE_TAG: $BASE_IMAGE_TAG"
           echo "FUNCTION_NAME: $FUNCTION_NAME"
           aws lambda update-function-code \
             --function-name "$FUNCTION_NAME" \
