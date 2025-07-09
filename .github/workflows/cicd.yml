@@ -70,6 +70,11 @@ jobs:
           IMAGE_REPO: ${{ env.IMAGE_REPO }}
         run: |
           echo "Building App1 image..."
+
+          echo "ECR_REGISTRY: $ECR_REGISTRY"
+          echo "IMAGE_TAG: $IMAGE_TAG"
+          echo "IMAGE_REPO: $IMAGE_REPO"
+
           docker build -t $ECR_REGISTRY/$IMAGE_REPO:$IMAGE_TAG \
                        -t $ECR_REGISTRY/$IMAGE_REPO:latest \
                        -f app1/Dockerfile \
@@ -88,6 +93,9 @@ jobs:
           FUNCTION_NAME: ${{ env.FUNCTION_NAME }}
         run: |
           echo "Deploying new image to Lambda: $FUNCTION_NAME"
+          echo "ECR_REGISTRY: $ECR_REGISTRY"
+          echo "IMAGE_TAG: $IMAGE_TAG"
+          echo "IMAGE_REPO: $IMAGE_REPO"
           aws lambda update-function-code \
             --function-name "$FUNCTION_NAME" \
             --image-uri "$ECR_REGISTRY/$IMAGE_REPO:$IMAGE_TAG"
@@ -122,6 +130,9 @@ jobs:
           IMAGE_REPO: ${{ env.IMAGE_REPO }}
         run: |
           echo "Building App2 image..."
+          echo "ECR_REGISTRY: $ECR_REGISTRY"
+          echo "IMAGE_TAG: $IMAGE_TAG"
+          echo "IMAGE_REPO: $IMAGE_REPO"
           docker build -t $ECR_REGISTRY/$IMAGE_REPO:$IMAGE_TAG \
                        -t $ECR_REGISTRY/$IMAGE_REPO:latest \
                        -f app2/Dockerfile \
@@ -140,6 +151,9 @@ jobs:
           FUNCTION_NAME: ${{ env.FUNCTION_NAME }}
         run: |
           echo "Deploying new image to Lambda: $FUNCTION_NAME"
+          echo "ECR_REGISTRY: $ECR_REGISTRY"
+          echo "IMAGE_TAG: $IMAGE_TAG"
+          echo "IMAGE_REPO: $IMAGE_REPO"
           aws lambda update-function-code \
             --function-name "$FUNCTION_NAME" \
             --image-uri "$ECR_REGISTRY/$IMAGE_REPO:$IMAGE_TAG"
