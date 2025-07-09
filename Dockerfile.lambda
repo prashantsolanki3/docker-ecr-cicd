@@ -1,0 +1,11 @@
+# Use AWS Lambda base image for Python 3.11 (Amazon Linux 2) – up-to-date runtime
+FROM public.ecr.aws/lambda/python:3.11
+
+# Install common dependencies (if any) for all Lambda functions
+# Example: install requests library (this layer is shared by App1 and App2)
+RUN pip install --no-cache-dir requests
+
+# (Optional) Set some environment variables or workdir if needed
+# ENV PYTHONUNBUFFERED=1
+
+# No CMD here – the CMD (handler) will be set in the final app images.
