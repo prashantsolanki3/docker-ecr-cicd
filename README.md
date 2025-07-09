@@ -116,3 +116,35 @@ docker build -f app2/Dockerfile -t app2 app2/
 - Verify ECR repositories exist and are accessible
 - Check that Lambda functions are configured to use container images
 - Review GitHub Actions logs for detailed error messages 
+
+
+AWS Policy
+
+```
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "lambda:ListFunctions",
+                "ecr:GetDownloadUrlForLayer",
+                "lambda:UpdateFunctionConfiguration",
+                "ecr:GetAuthorizationToken",
+                "ecr:UploadLayerPart",
+                "ecr:ListImages",
+                "ecr:PutImage",
+                "ecr:BatchGetImage",
+                "ecr:CompleteLayerUpload",
+                "ecr:DescribeImages",
+                "ecr:DescribeRepositories",
+                "ecr:InitiateLayerUpload",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetRepositoryPolicy"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
