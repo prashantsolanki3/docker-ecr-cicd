@@ -1,6 +1,7 @@
 ARG ECR_REGISTRY
 ARG BASE_IMAGE_TAG=latest
-FROM ${ECR_REGISTRY}/lambda:${BASE_IMAGE_TAG}
+ARG BASE_IMAGE_REPO=test_base
+FROM ${ECR_REGISTRY}/${BASE_IMAGE_REPO}:${BASE_IMAGE_TAG}
 
 # Copy App2's Lambda handler code
 COPY lambda_function.py ${LAMBDA_TASK_ROOT}/

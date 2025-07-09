@@ -2,7 +2,8 @@
 # The actual values for ECR_REGISTRY and BASE_IMAGE_TAG will be passed in via build args.
 ARG ECR_REGISTRY
 ARG BASE_IMAGE_TAG=latest
-FROM ${ECR_REGISTRY}/lambda:${BASE_IMAGE_TAG}
+ARG BASE_IMAGE_REPO=test_base
+FROM ${ECR_REGISTRY}/${BASE_IMAGE_REPO}:${BASE_IMAGE_TAG}
 
 # Copy App1's specific code into the Lambda task directory.
 # Assume there's a lambda_function.py in the app1 directory with a function 'handler'.
