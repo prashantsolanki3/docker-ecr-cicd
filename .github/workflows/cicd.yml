@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: base    # Wait for base image to be built
     env:
-      FUNCTION_NAME: MyApp1LambdaFunction  # replace with your actual Lambda function name for App1
+      FUNCTION_NAME: test_app1  # replace with your actual Lambda function name for App1
       IMAGE_REPO: test_app1                    # ECR repository name for App1 image
       BASE_IMAGE_REPO: test_base
       BASE_IMAGE_TAG: ${{ github.sha }}
@@ -117,7 +117,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: base
     env:
-      FUNCTION_NAME: MyApp2LambdaFunction   # replace with actual Lambda name for App2
+      FUNCTION_NAME: test_app2   # replace with actual Lambda name for App2
       IMAGE_REPO: test_app2                     # ECR repo name for App2 image
       BASE_IMAGE_REPO: test_base
       BASE_IMAGE_TAG: ${{ github.sha }}
